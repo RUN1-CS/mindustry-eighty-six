@@ -21,15 +21,22 @@ public class MorphoTurret {
                     Items.titanium, 150,
                     Items.surgeAlloy, 100
             ));
+
+            // Default Turret Values
             size = 4;
-            health = 3200;
+            health = 4600;
             reload = 120f;
-            range = 520f;
+            range = 800f;
             inaccuracy = 0f;
             rotateSpeed = 2.5f;
             recoil = 6f;
-            shake = 8f;
+            shake = 0f;
             shootSound = Sounds.shootForeshadow;
+
+            warmupMaintainTime = 90f;
+            shootWarmupSpeed /= 5f;
+            minWarmup = 0.9f;
+            shootCone = 15f;
 
             // Power consumption
             consumePower(25f);
@@ -40,6 +47,12 @@ public class MorphoTurret {
             coolantMultiplier = 2.5f;
             coolant = new ConsumeCoolant(0.4f);
 
+            canOverdrive = true;
+
+            // Targets
+            targetGround = true;
+            targetAir = true;
+
             // Bullet Types
             ammo(
                     Items.surgeAlloy, new PointBulletType() {{
@@ -48,7 +61,7 @@ public class MorphoTurret {
                         trailEffect = Fx.railTrail;
                         speed = 520f;
                         damage = 22755f;
-                        buildingDamageMultiplier = 0.5f;
+                        buildingDamageMultiplier = 2f;
                         pierce = true;
                         pierceBuilding = true;
                         pierceCap = 8;
@@ -62,7 +75,7 @@ public class MorphoTurret {
                         trailEffect = Fx.railTrail;
                         speed = 520f;
                         damage = 45510f;
-                        buildingDamageMultiplier = 0.5f;
+                        buildingDamageMultiplier = 2.5f;
                         pierce = true;
                         pierceBuilding = true;
                         pierceCap = 15;
