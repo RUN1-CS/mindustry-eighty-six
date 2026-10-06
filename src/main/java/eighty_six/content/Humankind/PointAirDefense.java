@@ -1,4 +1,4 @@
-package eighty_six.content;
+package eighty_six.content.Humankind;
 
 import mindustry.content.Fx;
 import mindustry.content.Items;
@@ -11,7 +11,9 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.consumers.ConsumeCoolant;
 
+/** Defines the point-defense turret and its anti-air ammunition. */
 public class PointAirDefense {
+    /** Creates and configures the point air defense block. */
     public static Block load() {
         return new ItemTurret("point-air-defense") {{
             requirements(Category.turret, ItemStack.with(
@@ -21,7 +23,7 @@ public class PointAirDefense {
                     Items.titanium, 200
             ));
 
-            // Default Turret Values
+            // Turret statistics.
             size = 2;
             health = 2100;
             reload = 40f;
@@ -32,23 +34,23 @@ public class PointAirDefense {
             shake = 0f;
             shootSound = Sounds.shootAlpha;
 
-            // Power consumption
+            // Power consumption.
             consumePower(15f);
 
-            // Liquid Cooling
+            // Liquid cooling.
             hasLiquids = true;
             liquidCapacity = 30f;
             coolantMultiplier = 2.5f;
             coolant = new ConsumeCoolant(0.4f);
 
-            // Overdrive
+            // Overdrive.
             canOverdrive = true;
 
-            // Targets
+            // Target types.
             targetGround = false;
             targetAir = true;
 
-            // Bullet Types
+            // Ammunition.
             ammo(
                     Items.surgeAlloy, new PointBulletType() {{
                         shootEffect = Fx.instHit;

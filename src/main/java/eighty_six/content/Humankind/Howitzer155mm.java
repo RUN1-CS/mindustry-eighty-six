@@ -1,4 +1,4 @@
-package eighty_six.content;
+package eighty_six.content.Humankind;
 
 import mindustry.content.Items;
 import mindustry.entities.bullet.ArtilleryBulletType;
@@ -8,9 +8,10 @@ import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.consumers.ConsumeCoolant;
-import mindustry.world.meta.Env;
 
+/** Defines the 155mm artillery turret and its shell ammunition. */
 public class Howitzer155mm {
+    /** Creates and configures the 155mm howitzer block. */
     public static Block load() {
         return new ItemTurret("howitzer-155mm") {{
             requirements(Category.turret, ItemStack.with(

@@ -1,4 +1,4 @@
-package eighty_six.content;
+package eighty_six.content.Legion;
 
 import mindustry.content.Fx;
 import mindustry.content.Items;
@@ -11,7 +11,9 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.consumers.ConsumeCoolant;
 
+/** Defines the Morpho coilgun turret and its piercing ammunition. */
 public class MorphoTurret {
+    /** Creates and configures the Morpho coilgun block. */
     public static Block load() {
         return new ItemTurret("morpho-coilgun") {{
             requirements(Category.turret, ItemStack.with(
@@ -22,7 +24,7 @@ public class MorphoTurret {
                     Items.surgeAlloy, 100
             ));
 
-            // Default Turret Values
+            // Turret statistics.
             size = 4;
             health = 4600;
             reload = 120f;
@@ -38,10 +40,10 @@ public class MorphoTurret {
             minWarmup = 0.9f;
             shootCone = 15f;
 
-            // Power consumption
+            // Power consumption.
             consumePower(25f);
 
-            // Liquid Cooling
+            // Liquid cooling.
             hasLiquids = true;
             liquidCapacity = 30f;
             coolantMultiplier = 2.5f;
@@ -49,11 +51,11 @@ public class MorphoTurret {
 
             canOverdrive = true;
 
-            // Targets
+            // Target types.
             targetGround = true;
             targetAir = true;
 
-            // Bullet Types
+            // Ammunition.
             ammo(
                     Items.surgeAlloy, new PointBulletType() {{
                         shootEffect = Fx.instHit;

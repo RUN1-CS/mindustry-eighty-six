@@ -1,4 +1,4 @@
-package eighty_six.content;
+package eighty_six.content.Legion;
 
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;

@@ -7,9 +7,9 @@ import mindustry.world.Block;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.blocks.units.UnitFactory.UnitPlan;
 
-import eighty_six.content.EightySixUnits;
-
+/** Defines the factory that produces the mod's mecha and Ameise units. */
 public class MechaFactory {
+        /** Creates and configures the mecha factory and its production plans. */
     public static Block load() {
         return new UnitFactory("mecha-factory") {{
             requirements(Category.units, ItemStack.with(

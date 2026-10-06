@@ -1,4 +1,4 @@
-package eighty_six.content;
+package eighty_six.content.Humankind;
 
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;

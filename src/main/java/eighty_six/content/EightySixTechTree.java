@@ -21,6 +21,23 @@ public class EightySixTechTree {
                 Items.silicon, 500
         ));
 
+        // Reconstructors branching from Mecha Factory
+        node(EightySixBlocks.mechaFactory, LegionReconstructors.refitter, ItemStack.with(
+                Items.copper, 1200, Items.lead, 1000, Items.silicon, 600
+        ));
+
+        node(LegionReconstructors.refitter, LegionReconstructors.assembler, ItemStack.with(
+                Items.silicon, 2000, Items.titanium, 1500, Items.thorium, 800
+        ));
+
+        node(LegionReconstructors.assembler, LegionReconstructors.fabricationCore, ItemStack.with(
+                Items.silicon, 5000, Items.thorium, 3000, Items.surgeAlloy, 1000
+        ));
+
+        node(LegionReconstructors.fabricationCore, LegionReconstructors.commandHive, ItemStack.with(
+                Items.silicon, 15000, Items.surgeAlloy, 8000, Items.phaseFabric, 5000
+        ));
+
         // Units produced directly by Mecha Factory
         node(EightySixBlocks.mechaFactory, EightySixUnits.juggernaut, ItemStack.with(
                 Items.silicon, 800,
