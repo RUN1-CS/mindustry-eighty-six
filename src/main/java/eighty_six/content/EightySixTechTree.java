@@ -1,5 +1,6 @@
 package eighty_six.content;
 
+import eighty_six.content.Legion.LegionReconstructors;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.TechTree;
