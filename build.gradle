@@ -1,0 +1,125 @@
+plugins {
+    id 'java'
+}
+
+sourceSets.main.java.srcDirs = ["src"]
+
+repositories {
+    mavenCentral()
+
+    // Primary: Download bundled dependencies JAR directly from Mindustry releases (Most Reliable)
+    ivy {
+        url = 'https://github.com/'
+        patternLayout { artifact '/[organisation]/[module]/releases/download/[revision]/dependencies.jar' }
+        metadataSources { artifact() }
+    }
+    // Fallback: For latest releases
+    ivy {
+        url = 'https://github.com/'
+        patternLayout { artifact '/[organisation]/[module]/releases/[revision]/download/dependencies.jar' }
+        metadataSources { artifact() }
+    }
+}
+
+java {
+    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+ext {
+    // Mindustry release build version
+    mindustryVersion = "v155.4"
+
+    isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
+    sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
+
+    // Auto-detect Mindustry AppData mods folder on Windows/Linux/macOS
+    modsDir = System.getenv("APPDATA") != null ?
+            "${System.getenv('APPDATA')}/Mindustry/mods" :
+            "${System.getProperty('user.home')}/.local/share/Mindustry/mods"
+}
+
+dependencies {
+    // Fetches compiled dependencies from Mindustry's Github release assets
+    compileOnly "Anuken:Mindustry:$mindustryVersion"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
+// Generates Android-compatible DEX bytecode if ANDROID_HOME is present
+tasks.register('jarAndroid') {
+    dependsOn "jar"
+    def projectName = project.name
+    doLast {
+        if (!sdkRoot || !new File(sdkRoot).exists()) return // Skip silently if no Android SDK
+
+        def platformRoot = new File("$sdkRoot/platforms/").listFiles()?.sort()?.reverse()?.find { f -> new File(f, "android.jar").exists() }
+        if (!platformRoot) return
+
+        def buildToolsRoot = new File("$sdkRoot/build-tools/").listFiles()?.sort()?.reverse()?.find { f ->
+            new File(f, isWindows ? "d8.bat" : "d8").exists()
+        }
+        if (!buildToolsRoot) return
+
+        def d8 = new File(buildToolsRoot, isWindows ? "d8.bat" : "d8").absolutePath
+        def dependencies = (configurations.compileClasspath.asList() + configurations.runtimeClasspath.asList() + [new File(platformRoot, "android.jar")]).collect { "--classpath $it.path" }.join(" ")
+
+        "$d8$dependencies --min-api 21 --output ${projectName}Android.jar ${projectName}Desktop.jar"
+                .execute(null, new File("build/libs")).waitForProcessOutput(System.out, System.err)
+    }
+}
+
+// Builds the Desktop Mod JAR
+jar {
+    archiveFileName = "${project.name}Desktop.jar"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    from(projectDir) {
+        include "mod.json", "mod.hjson"
+    }
+    from("assets/") {
+        include "**"
+    }
+}
+
+// Builds the full universal release JAR
+tasks.register('deploy', Jar) {
+    dependsOn jarAndroid
+    dependsOn jar
+    archiveFileName = "${project.name}.jar"
+
+    def androidJar = file("build/libs/${project.name}Android.jar")
+    if (androidJar.exists()) {
+        from { [zipTree("build/libs/${project.name}Desktop.jar"), zipTree(androidJar)] }
+    } else {
+        from { zipTree("build/libs/${project.name}Desktop.jar") }
+    }
+}
+
+// Run `./gradlew install` to build and automatically copy your mod into your Mindustry mods folder!
+tasks.register('install') {
+    dependsOn deploy
+    doLast {
+        copy {
+            from "build/libs/${project.name}.jar"
+            into modsDir
+        }
+        println "Mod successfully installed to: $modsDir"
+    }
+}

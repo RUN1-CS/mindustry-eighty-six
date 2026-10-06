@@ -1,0 +1,10 @@
+displayName: "Eighty Six"
+subtitle: ""
+name: "eighty_six"
+author: "ルン1"
+main: "eighty_six.eighty_six"
+description: "Mod that adds random stuff from the Eighty Six LN"
+version: "0.1"
+minGameVersion: 155
+java: true
+repo: "RUN1-CS/mindustry-eighty-six"
