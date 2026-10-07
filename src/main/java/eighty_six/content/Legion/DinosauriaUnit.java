@@ -4,6 +4,7 @@ import mindustry.content.Fx;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Sounds;
+import mindustry.gen.LegsUnit;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -12,6 +13,9 @@ public class DinosauriaUnit {
     /** Creates and configures the Dinosauria unit type. */
     public static UnitType load() {
         return new UnitType("dinosauria") {{
+
+            localizedName = "Dinosauria";
+
             health = 5500f;
             armor = 20f;
             hitSize = 32f;
@@ -80,6 +84,20 @@ public class DinosauriaUnit {
                     lifetime = 32f;
                 }};
             }});
+
+            constructor = LegsUnit::create;
+
+            legCount = 8;
+            legLength = 28f;
+            legGroupSize = 4;
+            legSpeed = 0.4f;
+            legMoveSpace = 1.5f;
+            legPairOffset = 1.5f;
+            legExtension = -4f;
+            legBaseOffset = 7f;
+
+            allowLegStep = true;
+            shadowElevation = 0.5f;
         }};
     }
 }

@@ -4,6 +4,7 @@ import mindustry.content.Fx;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Sounds;
+import mindustry.gen.LegsUnit;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -12,6 +13,9 @@ public class MorphoUnit {
     /** Creates and configures the Morpho unit type. */
     public static UnitType load() {
         return new UnitType("morpho") {{
+
+            localizedName = "Morpho";
+
             health = 28000f;
             armor = 35f;
             hitSize = 64f;
@@ -100,6 +104,20 @@ public class MorphoUnit {
                     hitEffect = Fx.colorSpark;
                 }};
             }});
+
+            constructor = LegsUnit::create;
+
+            legCount = 8;
+            legLength = 42f;
+            legGroupSize = 4;
+            legSpeed = 0.2f;
+            legMoveSpace = 2.0f;
+            legPairOffset = 2.2f;
+            legExtension = -6f;
+            legBaseOffset = 12f;
+
+            allowLegStep = true;
+            shadowElevation = 0.8f;
         }};
     }
 }

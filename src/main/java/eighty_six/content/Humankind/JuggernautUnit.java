@@ -1,10 +1,12 @@
 package eighty_six.content.Humankind;
 
+import arc.Core;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.PointBulletType;
 import mindustry.gen.Sounds;
+import mindustry.gen.LegsUnit;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -13,6 +15,9 @@ public class JuggernautUnit {
     /** Creates and configures the Juggernaut unit type. */
     public static UnitType load() {
         return new UnitType("juggernaut") {{
+
+            localizedName = "M1A4 Juggernaut";
+
             speed = 1.15f;
             hitSize = 10f;
             health = 140f;
@@ -21,7 +26,7 @@ public class JuggernautUnit {
             canBoost = false;
             hovering = false;
 
-            weapons.add(new Weapon("eighty_six-57mm-smoothbore") {{
+            weapons.add(new Weapon("eighty_six-eighty_six-57mm-smoothbore") {{
                 top = true;
                 x = 0f;
                 y = 2f;
@@ -30,6 +35,8 @@ public class JuggernautUnit {
                 shake = 2f;
                 mirror = false;
                 shootSound = Sounds.shootArtillery;
+
+                name = "eighty_six-eighty_six-57mm-smoothbore";
 
                 bullet = new PointBulletType() {{
                     speed = 280f;
@@ -45,7 +52,7 @@ public class JuggernautUnit {
                 }};
             }});
 
-            weapons.add(new Weapon("eighty_six-12mm-hmg") {{
+            weapons.add(new Weapon("eighty_six-eighty_six-12mm-hmg") {{
                 top = false;
                 x = 4.5f;
                 y = 0f;
@@ -54,6 +61,8 @@ public class JuggernautUnit {
                 ejectEffect = Fx.casing1;
                 shootSound = Sounds.shoot;
                 mirror = true;
+
+                name = "eighty_six-eighty_six-12mm-hmg";
 
                 bullet = new BasicBulletType(6f, 18) {{
                     width = 5f;
@@ -64,7 +73,7 @@ public class JuggernautUnit {
                 }};
             }});
 
-            weapons.add(new Weapon("eighty_six-hf-blade") {{
+            weapons.add(new Weapon("eighty_six-eighty_six-hf-blade") {{
                 top = false;
                 x = 3.5f;
                 y = 3f;
@@ -72,6 +81,8 @@ public class JuggernautUnit {
                 recoil = 0f;
                 mirror = true;
                 shootSound = Sounds.shootArc;
+
+                name = "eighty_six-eighty_six-hf-blade";
 
                 bullet = new BasicBulletType(0f, 0) {{
                     lifetime = 1f;
@@ -82,6 +93,24 @@ public class JuggernautUnit {
                     status = StatusEffects.corroded;
                 }};
             }});
+
+            constructor = LegsUnit::create;
+
+            drawCell = false;
+            outlineRadius = 0;
+
+            // Quadrupedal Setup
+            legCount = 4;
+            legLength = 14f;
+            legGroupSize = 2;
+            legSpeed = 0.8f;
+            legMoveSpace = 1.2f;
+            legPairOffset = 0.8f;
+            legExtension = -2f;
+            legBaseOffset = 3f;
+
+            allowLegStep = true;
+            shadowElevation = 0.35f;
         }};
     }
 }

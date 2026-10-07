@@ -3,6 +3,7 @@ package eighty_six.content.Legion;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.gen.Sounds;
+import mindustry.gen.LegsUnit;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -11,6 +12,9 @@ public class ZentaurUnit {
     /** Creates and configures the Zentaur unit type. */
     public static UnitType load() {
         return new UnitType("zentaur") {{
+
+            localizedName = "Zentaur";
+
             health = 12000f;
             armor = 25f;
             hitSize = 48f;
@@ -46,6 +50,20 @@ public class ZentaurUnit {
                     knockback = 8f;
                 }};
             }});
+
+            constructor = LegsUnit::create;
+
+            legCount = 8;
+            legLength = 34f;
+            legGroupSize = 4;
+            legSpeed = 0.3f;
+            legMoveSpace = 1.8f;
+            legPairOffset = 1.8f;
+            legExtension = -5f;
+            legBaseOffset = 9f;
+
+            allowLegStep = true;
+            shadowElevation = 0.6f;
         }};
     }
 }

@@ -4,6 +4,7 @@ import mindustry.content.Fx;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Sounds;
+import mindustry.gen.LegsUnit;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -12,6 +13,9 @@ public class LoweUnit {
     /** Creates and configures the Lowe unit type. */
     public static UnitType load() {
         return new UnitType("lowe") {{
+
+            localizedName = "Löwe";
+
             health = 2600f;
             armor = 13f;
             hitSize = 20f;
@@ -63,6 +67,20 @@ public class LoweUnit {
                     lifetime = 30f;
                 }};
             }});
+
+            constructor = LegsUnit::create;
+
+            legCount = 8;
+            legLength = 22f;
+            legGroupSize = 4;
+            legSpeed = 0.5f;
+            legMoveSpace = 1.3f;
+            legPairOffset = 1.2f;
+            legExtension = -3f;
+            legBaseOffset = 5f;
+
+            allowLegStep = true;
+            shadowElevation = 0.4f;
         }};
     }
 }

@@ -4,6 +4,7 @@ import mindustry.content.Fx;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Sounds;
+import mindustry.gen.LegsUnit;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -12,6 +13,9 @@ public class VanagandrUnit {
     /** Creates and configures the Vanagandr unit type. */
     public static UnitType load() {
         return new UnitType("vanagandr") {{
+
+            localizedName = "M4A3 Vánagandr";
+
             health = 2200f;
             armor = 12f;
             hitSize = 22f;
@@ -22,7 +26,7 @@ public class VanagandrUnit {
 
             targetAir = false;
 
-            weapons.add(new Weapon("eighty_six-120mm-cannon") {{
+            weapons.add(new Weapon("eighty_six-eighty_six-120mm-cannon") {{
                 top = true;
                 x = 0f;
                 y = 1f;
@@ -33,6 +37,8 @@ public class VanagandrUnit {
                 inaccuracy = 4f;
                 range = 220f;
                 shootSound = Sounds.shootArtillery;
+
+                name = "eighty_six-eighty_six-120mm-cannon";
 
                 bullet = new ArtilleryBulletType(5f, 180) {{
                     lifetime = 70f;
@@ -45,7 +51,7 @@ public class VanagandrUnit {
                 }};
             }});
 
-            weapons.add(new Weapon("eighty_six-12mm-hmg") {{
+            weapons.add(new Weapon("eighty_six-eighty_six-12mm-hmg") {{
                 top = false;
                 x = 8.5f;
                 y = -1f;
@@ -56,12 +62,28 @@ public class VanagandrUnit {
                 ejectEffect = Fx.casing1;
                 shootSound = Sounds.shoot;
 
+                name = "eighty_six-eighty_six-12mm-hmg";
+
                 bullet = new BasicBulletType(6f, 22) {{
                     width = 5f;
                     height = 8f;
                     lifetime = 35f;
                 }};
             }});
+
+            constructor = LegsUnit::create;
+
+            legCount = 8;
+            legLength = 18f;
+            legGroupSize = 2;
+            legSpeed = 0.6f;
+            legMoveSpace = 1.4f;
+            legPairOffset = 1.0f;
+            legExtension = -3f;
+            legBaseOffset = 4f;
+
+            allowLegStep = true;
+            shadowElevation = 0.3f;
         }};
     }
 }

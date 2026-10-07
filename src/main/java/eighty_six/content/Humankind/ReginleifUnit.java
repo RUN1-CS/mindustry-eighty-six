@@ -4,6 +4,7 @@ import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.PointBulletType;
 import mindustry.gen.Sounds;
+import mindustry.gen.LegsUnit;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -12,6 +13,9 @@ public class ReginleifUnit {
     /** Creates and configures the Reginleif unit type. */
     public static UnitType load() {
         return new UnitType("reginleif") {{
+
+            localizedName = "XM2 Reginleif";
+
             health = 380f;
             armor = 3f;
             hitSize = 12f;
@@ -23,7 +27,7 @@ public class ReginleifUnit {
             canBoost = false;
             hovering = false;
 
-            weapons.add(new Weapon("eighty_six-88mm-smoothbore") {{
+            weapons.add(new Weapon("eighty_six-eighty_six-88mm-smoothbore") {{
                 top = true;
                 x = 0f;
                 y = 2f;
@@ -32,6 +36,8 @@ public class ReginleifUnit {
                 shake = 3f;
                 mirror = false;
                 shootSound = Sounds.shootArtillery;
+
+                name = "eighty_six-eighty_six-88mm-smoothbore";
 
                 bullet = new PointBulletType() {{
                     speed = 320f;
@@ -47,7 +53,7 @@ public class ReginleifUnit {
                 }};
             }});
 
-            weapons.add(new Weapon("eighty_six-leg-piledriver") {{
+            weapons.add(new Weapon("eighty_six-eighty_six-leg-piledriver") {{
                 top = false;
                 x = 5f;
                 y = 0f;
@@ -65,13 +71,15 @@ public class ReginleifUnit {
                 }};
             }});
 
-            weapons.add(new Weapon("eighty_six-reginleif-hf-blade") {{
+            weapons.add(new Weapon("eighty_six-eighty_six-reginleif-hf-blade") {{
                 top = false;
                 x = 4f;
                 y = 3f;
                 reload = 25f;
                 mirror = true;
                 shootSound = Sounds.shootArc;
+
+                name = "eighty_six-eighty_six-reginleif-hf-blade";
 
                 bullet = new BasicBulletType(0f, 0) {{
                     lifetime = 1f;
@@ -81,6 +89,20 @@ public class ReginleifUnit {
                     hitEffect = Fx.colorSpark;
                 }};
             }});
+
+            constructor = LegsUnit::create;
+
+            legCount = 4;
+            legLength = 16f;
+            legGroupSize = 2;
+            legSpeed = 1.2f;
+            legMoveSpace = 1.0f;
+            legPairOffset = 0.8f;
+            legExtension = -2f;
+            legBaseOffset = 3f;
+
+            allowLegStep = true;
+            shadowElevation = 0.35f;
         }};
     }
 }

@@ -3,6 +3,7 @@ package eighty_six.content.Legion;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Sounds;
+import mindustry.gen.LegsUnit;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -11,6 +12,9 @@ public class AmeiseUnit {
     /** Creates and configures the Ameise unit type. */
     public static UnitType load() {
         return new UnitType("ameise") {{
+
+            localizedName = "The Ameise";
+
             health = 180f;
             armor = 1f;
             hitSize = 9f;
@@ -41,6 +45,20 @@ public class AmeiseUnit {
                     buildingDamageMultiplier = 0.5f;
                 }};
             }});
+
+            constructor = LegsUnit::create;
+
+            legCount = 6;
+            legLength = 10f;
+            legGroupSize = 3;
+            legSpeed = 1.1f;
+            legMoveSpace = 0.9f;
+            legPairOffset = 0.6f;
+            legExtension = -1f;
+            legBaseOffset = 2f;
+
+            allowLegStep = true;
+            shadowElevation = 0.2f;
         }};
     }
 }
